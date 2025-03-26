@@ -225,6 +225,3 @@ processor = PaypalPaymentProcessor(authorizer, "test@test.com")
 authorizer.not_a_robot()
 processor.pay(order)
 
-"""
-- Now we won't violate the second principle anymore, because if you want to add another payment method, we don't have to change any of the main classes anymore (Order, PaymentProcessor)
-"""
