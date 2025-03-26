@@ -80,17 +80,33 @@ class Order:
         for i in range(len(self.prices)):
             total += self.quantities[i] * self.prices[i]
         return total
+    
+    def set_status(self, status):
+        self.status = status
 
 class PaymentProcessor:
-    # Processes the payment
-    def pay(self, payment_type, security_code):
-        if payment_type == "debit":
-            print("Processing debit payment type")
-            print(f"Verifying security code: {security_code}")
-            self.status = "paid"
-        elif payment_type == "credit":
-            print("Processing credit payment type")
-            print(f"Verifying security code: {security_code}")
-            self.status = "paid"
-        else: 
-            raise Exception(f"Unknown payment type: {payment_type}")
+    # Processes debit payment
+    def pay_debit(self, order, security_code):
+        print("Processing debit payment type")
+        print(f"Verifying security code: {security_code} for {order}")
+        order.set_status("paid")
+    # Processes credit payment
+    def pay_credit(self, order, security_code):
+        print("Processing credit payment type")
+        print(f"Verifying security code: {security_code} for {order}")
+        order.set_status("paid")
+
+
+order = Order()
+order.add_item("Keyboard", 1, 50)
+order.add_item("SSD", 1, 150)
+order.add_item("USB Cable", 2, 5)
+
+print(order.total_price())
+processor = PaymentProcessor()
+processor.pay_debit(order, "0372846")
+
+
+"""
+- Now the Order and PaymentProcessor classeses have their own single responsability
+"""
